@@ -167,7 +167,7 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
     except jwt.InvalidTokenError:
         raise HTTPException(status_code=401, detail="Invalid token")
 
-async def require_role(required_roles: List[UserRole]):
+def require_role(required_roles: List[UserRole]):
     async def role_checker(user: UserProfile = Depends(get_current_user)) -> UserProfile:
         if user.role not in required_roles:
             raise HTTPException(status_code=403, detail="Insufficient permissions")
