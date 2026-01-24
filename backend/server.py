@@ -301,8 +301,8 @@ async def create_article(article_data: ArticleCreate, user: UserProfile = Depend
     if not category:
         raise HTTPException(status_code=404, detail="Category not found")
     
-    # Generate slug from title
-    slug = article_data.title.lower().replace(' ', '-')[:50] + '-' + str(uuid.uuid4())[:8]
+    # Generate slug from title (using UUID for simplicity to avoid encoding issues)
+    slug = 'article-' + str(uuid.uuid4())[:12]
     
     article = Article(
         title=article_data.title,
